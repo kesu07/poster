@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>研究ポスター</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Times New Roman", "Liberation Serif", "DejaVu Serif",
+          serif;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 20px;
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      .poster {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        border: 1px solid #dee2e6;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        padding: 40px 50px;
+        text-align: center;
+        position: relative;
+        border-bottom: 3px solid #3498db;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+      }
+
+      .header h1 {
+        font-size: 2.8em;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+      }
+
+      .university-info {
+        position: relative;
+        z-index: 1;
+        margin-top: 25px;
+        text-align: center;
+        font-size: 0.9em;
+        opacity: 0.95;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        padding-top: 15px;
+      }
+
+      .university-info p {
+        margin: 3px 0;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+      }
+
+      .university-info .university {
+        font-size: 1.1em;
+        font-weight: 500;
+      }
+
+      .university-info .professor {
+        font-size: 0.95em;
+        font-style: italic;
+      }
+
+      .header .subtitle {
+        font-size: 2.8em;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+      }
+
+      .content {
+        padding: 50px;
+        background: #fefefe;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .section-title {
+        font-size: 1.9em;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #3498db;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .section-title::before {
+        content: "";
+        width: 8px;
+        height: 35px;
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        border-radius: 4px;
+        margin-right: 15px;
+      }
+
+      .problem-box {
+        background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+        padding: 30px;
+        border-radius: 15px;
+        margin: 20px 0;
+        box-shadow: 0 10px 20px rgba(33, 150, 243, 0.2);
+        border-left: 4px solid #2196f3;
+      }
+
+      .methods-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        margin: 30px 0;
+      }
+
+      .method-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+
+      .method-image img {
+        transition: transform 0.3s ease;
+      }
+
+      .method-card:hover .method-image img {
+        transform: scale(1.05);
+      }
+
+      .experiment-overview {
+        margin-bottom: 30px;
+      }
+
+      .store-design-box {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 30px;
+        border-radius: 15px;
+        margin: 20px 0;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #28a745;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .feature-item {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-left: 3px solid #28a745;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 200px;
+      }
+
+      .feature-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .feature-item h4 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        font-weight: 600;
+      }
+
+      .method-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--card-color), transparent);
+      }
+
+      .method-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      }
+
+      .method-a {
+        border-left-color: #4caf50;
+        --card-color: #4caf50;
+      }
+
+      .method-b {
+        border-left-color: #ff9800;
+        --card-color: #ff9800;
+      }
+
+      .method-e {
+        border-left-color: #2196f3;
+        --card-color: #2196f3;
+      }
+
+      .method-title {
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #333;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        line-height: 1.3;
+      }
+
+      .method-description {
+        font-size: 1em;
+        line-height: 1.5;
+        color: #555;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        text-align: left;
+        padding: 8px 0;
+      }
+
+      .method-features {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 15px 0;
+        margin-top: auto;
+      }
+
+      .experiment-flow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        padding: 30px;
+        border-radius: 15px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+
+      .flow-step {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        min-width: 200px;
+        margin: 10px;
+        position: relative;
+      }
+
+      .flow-step::after {
+        content: "→";
+        position: absolute;
+        right: -30px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2em;
+        color: #667eea;
+        font-weight: bold;
+      }
+
+      .flow-step:last-child::after {
+        display: none;
+      }
+
+      .results-preview {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .impact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .impact-item {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        padding: 25px;
+        border-radius: 15px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 10px 20px rgba(250, 112, 154, 0.3);
+      }
+
+      .visual-elements {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 30px 0;
+        flex-wrap: wrap;
+      }
+
+      .visual-icon {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2.5em;
+        margin: 10px;
+        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+      }
+
+      .highlight-text {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: bold;
+      }
+
+      .research-members {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 30px;
+        border-radius: 10px;
+        margin: 20px 0;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .research-members h3 {
+        color: #495057;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .members-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .member-item {
+        text-align: center;
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+        font-weight: 500;
+        color: #495057;
+        transition: all 0.3s ease;
+      }
+
+      .member-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .footer-info {
+        margin-top: 40px;
+        padding: 25px;
+        background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+        border-radius: 8px;
+        border-left: 4px solid #3498db;
+      }
+
+      .conference-info {
+        text-align: center;
+        color: #2c3e50;
+      }
+
+      .conference-info p {
+        margin: 8px 0;
+        font-size: 1.1em;
+        font-weight: 500;
+      }
+
+      @media (max-width: 1200px) {
+        .poster {
+          max-width: 95%;
+        }
+
+        .header {
+          padding: 30px 30px;
+        }
+
+        .content {
+          padding: 30px;
+        }
+
+        .methods-grid {
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 25px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          padding: 25px 20px;
+        }
+
+        .header h1 {
+          font-size: 2.2em;
+          line-height: 1.3;
+        }
+
+        .header .subtitle {
+          font-size: 1.8em;
+          line-height: 1.3;
+        }
+
+        .content {
+          padding: 25px;
+        }
+
+        .section-title {
+          font-size: 1.6em;
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+        }
+
+        .section-title::before {
+          margin-bottom: 10px;
+          margin-right: 0;
+        }
+
+        .methods-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .method-card {
+          padding: 20px;
+        }
+
+        .experiment-flow {
+          flex-direction: column;
+          padding: 20px;
+        }
+
+        .flow-step::after {
+          content: "↓";
+          right: 50%;
+          top: 100%;
+          transform: translateX(50%);
+        }
+
+        .feature-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .impact-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .members-list {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+      }
+
+      @media (max-width: 480px) {
+        .poster {
+          margin: 10px;
+          border-radius: 5px;
+        }
+
+        .header {
+          padding: 20px 15px;
+        }
+
+        .header h1 {
+          font-size: 1.8em;
+        }
+
+        .header .subtitle {
+          font-size: 1.4em;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .section {
+          margin-bottom: 30px;
+        }
+
+        .section-title {
+          font-size: 1.4em;
+        }
+
+        .problem-box {
+          padding: 20px;
+        }
+
+        .method-card {
+          padding: 15px;
+        }
+
+        .store-design-box {
+          padding: 20px;
+        }
+
+        .feature-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .feature-item {
+          padding: 15px;
+        }
+
+        .flow-step {
+          min-width: 150px;
+          padding: 15px;
+        }
+
+        .impact-item {
+          padding: 20px;
+        }
+
+        .research-members {
+          padding: 20px;
+        }
+
+        .members-list {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 320px) {
+        .method-card img {
+          height: 250px !important;
+        }
+
+        .header h1 {
+          font-size: 1.5em;
+        }
+
+        .header .subtitle {
+          font-size: 1.2em;
+        }
+
+        .feature-item {
+          padding: 12px;
+        }
+
+        .store-design-box {
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="poster">
+      <div class="header">
+        <h1>無人店舗における人的介入なし自動化ガイダンス手法の比較</h1>
+        <div class="subtitle">商品受け取り時間への影響分析</div>
+        <div class="university-info">
+          <p class="university">アマガエル大学大学院地域情報学研究科</p>
+          <p class="researcher">
+            研究者：山田太郎、佐藤太郎、加藤太郎、斎藤太郎、佐々木恵、東郷太郎
+          </p>
+          <p class="date">作成日：2025年5月25日</p>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="section">
+          <h2 class="section-title">研究背景・課題</h2>
+          <div class="problem-box">
+            <h3 style="color: #1a237e; margin-bottom: 15px; font-weight: 600">
+              📋 研究背景
+            </h3>
+            <p style="font-size: 1.1em; line-height: 1.6; color: #1a237e">
+              無人店舗の普及に伴い、これまで人的に補ってきた店舗説明なども無人化する必要が生じている。既存の<strong
+                style="color: #0d47a1"
+                >ポスター表示や音声案内</strong
+              >などのガイダンス手法が効果的であるのか、さらに<span
+                style="color: #1976d2; font-weight: bold"
+                >AIとの対話によって顧客の行動に何らかの変化</span
+              >が生じるのか、その影響を定量的に調査することが重要である。本研究では、これらの異なるガイダンス手法が商品受け取り時間に与える影響を比較検証する。
+            </p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">比較するガイダンス手法</h2>
+          <div class="methods-grid">
+            <div class="method-card method-a">
+              <div class="method-image">
+                <img
+                  src="images/A_購入手順.png"
+                  alt="静的視覚案内の例"
+                  style="
+                    width: 100%;
+                    height: 320px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    margin-bottom: 15px;
+                  "
+                />
+              </div>
+              <div class="method-title">A：静的視覚案内</div>
+              <div class="method-description">
+                ポスター等に常時掲示された文字と図解による案内
+              </div>
+              <div class="method-features">
+                <strong>特性：</strong><br />
+                • 媒体：視覚（文字・静止画）<br />
+                • 形式：静的、自己探索型<br />
+                • コスト：低、維持管理容易
+              </div>
+            </div>
+
+            <div class="method-card method-b">
+              <div class="method-image">
+                <img
+                  src="images/B_自動音声.png"
+                  alt="自動音声案内の例"
+                  style="
+                    width: 100%;
+                    height: 320px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    margin-bottom: 15px;
+                  "
+                />
+              </div>
+              <div class="method-title">B：自動音声案内</div>
+              <div class="method-description">
+                特定行動をトリガーに定型的な音声メッセージで案内
+              </div>
+              <div class="method-features">
+                <strong>特性：</strong><br />
+                • 媒体：聴覚（システム音声）<br />
+                • 形式：一方向、自動プッシュ<br />
+                • タイミング：行動連動型
+              </div>
+            </div>
+
+            <div class="method-card method-e">
+              <div class="method-image">
+                <img
+                  src="images/C_AI対話.png"
+                  alt="AI音声対話案内の例"
+                  style="
+                    width: 100%;
+                    height: 320px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    margin-bottom: 15px;
+                  "
+                />
+              </div>
+              <div class="method-title">E：AIによる音声対話案内</div>
+              <div class="method-description">
+                顧客の音声質問にAIが双方向的に応答・案内
+              </div>
+              <div class="method-features">
+                <strong>特性：</strong><br />
+                • 媒体：聴覚（AI合成音声）<br />
+                • 形式：双方向、AI対応<br />
+                • 個別化：質問内容に応じた対応
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">無人店舗システム構成要素</h2>
+          <div class="experiment-overview">
+            <div class="store-design-box">
+              <div class="store-features">
+                <h4
+                  style="
+                    color: #2c3e50;
+                    margin: 20px 0 15px;
+                    font-size: 1.2em;
+                    font-weight: 600;
+                  "
+                >
+                  💬 対話・表現システム（3システム）
+                </h4>
+                <div class="feature-grid">
+                  <div class="feature-item">
+                    <h4>🤖 AI対話システム</h4>
+                    <p>・OpenAI RealtimeAPIでリアルタイムでの会話を行う</p>
+                    <div
+                      style="
+                        margin-top: 10px;
+                        padding: 8px;
+                        background: #e8f5e8;
+                        border-radius: 5px;
+                        font-size: 0.9em;
+                      "
+                    >
+                      <strong>担当者：</strong> 山田太郎
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <h4>🖥️ ディスプレイアバターシステム</h4>
+                    <p>・アバターの口パク動画ループ再生</p>
+                    <div
+                      style="
+                        margin-top: 10px;
+                        padding: 8px;
+                        background: #e8f5e8;
+                        border-radius: 5px;
+                        font-size: 0.9em;
+                      "
+                    >
+                      <strong>担当者：</strong> 加藤太郎
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <h4>🤖 ロボット制御システム</h4>
+                    <p>
+                      ・自動動作作成<br />
+                      ・音声対話との連携機能<br />
+                    </p>
+                    <div
+                      style="
+                        margin-top: 10px;
+                        padding: 8px;
+                        background: #e8f5e8;
+                        border-radius: 5px;
+                        font-size: 0.9em;
+                      "
+                    >
+                      <strong>担当者：</strong> 佐々木恵
+                    </div>
+                  </div>
+                </div>
+
+                <h4
+                  style="
+                    color: #2c3e50;
+                    margin: 30px 0 15px;
+                    font-size: 1.2em;
+                    font-weight: 600;
+                  "
+                >
+                  📍 検知システム（2システム）
+                </h4>
+                <div class="feature-grid">
+                  <div class="feature-item">
+                    <h4>🔵 来店検知システム（センサー型）</h4>
+                    <p>
+                      ・2点間センサによる来店・退店検知<br />
+                      ・入退店タイミングの正確な記録
+                    </p>
+                    <div
+                      style="
+                        margin-top: 10px;
+                        padding: 8px;
+                        background: #fff5e6;
+                        border-radius: 5px;
+                        font-size: 0.9em;
+                      "
+                    >
+                      <strong>担当者：</strong> 東郷太郎
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <h4>📹 来店検知システム（カメラ型）</h4>
+                    <p>
+                      ・カメラによる来店検知（顔検知）<br />
+                      ・退店検知（背中認識）
+                    </p>
+                    <div
+                      style="
+                        margin-top: 10px;
+                        padding: 8px;
+                        background: #fff5e6;
+                        border-radius: 5px;
+                        font-size: 0.9em;
+                      "
+                    >
+                      <strong>担当者：</strong> 佐藤太郎
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">実験設計</h2>
+          <div class="experiment-flow">
+            <div class="flow-step">
+              <h4>被験者募集</h4>
+              <p>多様な年齢層・技術習熟度の顧客を対象</p>
+            </div>
+            <div class="flow-step">
+              <h4>ランダム割り当て</h4>
+              <p>3つのガイダンス手法にグループ分け</p>
+            </div>
+            <div class="flow-step">
+              <h4>商品受け取り実験</h4>
+              <p>実際の無人店舗環境で時間測定</p>
+            </div>
+            <div class="flow-step">
+              <h4>データ分析</h4>
+              <p>受け取り時間の統計的比較</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">期待される結果と影響</h2>
+          <div class="results-preview">
+            <h3 style="margin-bottom: 20px">🎯 研究から明らかになること</h3>
+            <p style="font-size: 1.2em; line-height: 1.6">
+              無人店舗において、人的介入を伴わない自動化ガイダンス手法を比較した結果、
+              <strong>商品受け取り時間を最も短縮できる手法</strong>が特定される
+            </p>
+          </div>
+
+          <div class="impact-grid">
+            <div class="impact-item">
+              <h4>🏪 小売業界への貢献</h4>
+              <p>効果的なガイダンス手法の導入により顧客満足度向上</p>
+            </div>
+            <div class="impact-item">
+              <h4>🤖 自動化技術の発展</h4>
+              <p>人的介入なしサービスの最適化指針を提供</p>
+            </div>
+            <div class="impact-item">
+              <h4>📊 実証的エビデンス</h4>
+              <p>定量的データに基づく手法選択の根拠を構築</p>
+            </div>
+            <div class="impact-item">
+              <h4>💡 イノベーション促進</h4>
+              <p>新たな無人サービスモデルの設計指針</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">研究メンバー</h2>
+          <div class="research-members">
+            <h3>Research Team</h3>
+            <div class="members-list">
+              <div class="member-item">佐藤太郎</div>
+              <div class="member-item">加藤太郎</div>
+              <div class="member-item">斎藤太郎</div>
+              <div class="member-item">佐々木恵</div>
+              <div class="member-item">東郷太郎</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
